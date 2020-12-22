@@ -44,10 +44,11 @@ public class MyCustomSourceTest {
             Random random = new Random();
             // 设置10个传感器的
             HashMap<String,Double> sensorTempMap = new HashMap<>(16);
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 5; i++) {
 //                random.nextGaussian() 高斯随机数（正态分布）
                 sensorTempMap.put("sensor_" + (i+1),60 + random.nextGaussian() * 20);
             }
+            int i = 0;
             while (running) {
                 for(String sensorId : sensorTempMap.keySet()) {
                     Double newTemp = sensorTempMap.get(sensorId) + random.nextGaussian();
@@ -56,10 +57,14 @@ public class MyCustomSourceTest {
                     ctx.collect(new SensorReading(sensorId,System.currentTimeMillis(),newTemp));
 
                 }
+                i ++;
                 // 控制输出频率
                 TimeUnit.SECONDS.sleep(1);
-                // 控制取消
-                 cancel();
+                if (i == 3) {
+                    // 控制取消
+                    cancel();
+                }
+
             }
         }
 

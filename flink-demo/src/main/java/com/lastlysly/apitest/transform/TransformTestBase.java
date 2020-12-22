@@ -13,7 +13,7 @@ import org.apache.flink.util.Collector;
  * @author lastlySly
  * @GitHub https://github.com/lastlySly
  * @create 2020-12-18 12:26
- * 转换算子 map,flatmap
+ * 转换算子 map,flatmap,filter
  **/
 public class TransformTestBase {
     public static void main(String[] args) throws Exception {
