@@ -12,6 +12,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
  * @GitHub https://github.com/lastlySly
  * @create 2020-12-21 17:13
  * reduce聚合 使用
+ * KeyedStream（继承自DataStream） 的 api,需要keyby后调用
  **/
 public class TransformTestReduce {
     public static void main(String[] args) throws Exception {

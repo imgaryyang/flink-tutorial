@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @GitHub https://github.com/lastlySly
  * @create 2020-12-21 12:29
  * 滚动聚合算子 （max，maxby）
+ * KeyedStream（继承自DataStream） 的 api,需要keyby后调用
  **/
 public class TransformTestRollingAggregation {
     public static void main(String[] args) throws Exception {
