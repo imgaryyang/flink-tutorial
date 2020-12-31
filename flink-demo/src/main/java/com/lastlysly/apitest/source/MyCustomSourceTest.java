@@ -7,6 +7,7 @@ import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 import java.util.HashMap;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -77,4 +78,38 @@ public class MyCustomSourceTest {
         }
     }
 
+    /**
+     * 自定义 流数据源
+     */
+    public static class MyCustomSourceStream implements SourceFunction<SensorReading> {
+
+        // 定义标志位，用于控制数据的产生
+        private boolean running = true;
+
+        /**
+         * 数据源执行  生成数据
+         * @param ctx  数据源Source任务的 上下文
+         * @throws Exception
+         */
+        @Override
+        public void run(SourceContext<SensorReading> ctx) throws Exception {
+            // 定义一个随机数发生器
+            Random random = new Random();
+            while (running) {
+                Double newTemp = 60 + random.nextGaussian() * 20 + random.nextGaussian();
+//                    调用 collect方法收集生成的数据。
+                ctx.collect(new SensorReading("test_" + random.nextInt(20),System.currentTimeMillis(),newTemp));
+                // 控制输出频率
+                TimeUnit.SECONDS.sleep(1);
+            }
+        }
+
+        /**
+         * 数据生成控制  取消或退出
+         */
+        @Override
+        public void cancel() {
+            running = false;
+        }
+    }
 }
